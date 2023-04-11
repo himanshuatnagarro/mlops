@@ -10,6 +10,30 @@ on:
   workflow_dispatch:
 
 jobs:
+
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    - name: Show directory
+      run: echo $PWD
+    - name: Show project files
+      run: ls
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
+    - name: Install dependencies
+      run: pip install -r house-prices-api/requirements.txt
+    - name: Install Tox
+      run: pip install tox==3.0.0
+    - name: Run Tox
+      run: tox -c house-prices-api/tox.ini
+
   build:
 
     runs-on: ubuntu-latest
